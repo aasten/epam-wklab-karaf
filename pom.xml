@@ -8,22 +8,51 @@
     <artifactId>karaf-feature</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>feature</packaging>
+    <packaging>pom</packaging>
 
 
     <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <maven.build.helper.plugin>3.0.0</maven.build.helper.plugin>
+        <osgi.core.version>6.0.0</osgi.core.version>
+        <karaf.plugin>4.1.1</karaf.plugin>
+        <!--<cxf.version>3.1.10</cxf.version>-->
+        <!--<cxf.scope>provided</cxf.scope>-->
     </properties>
 
     <modules>
         <module>server-bundle</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <version>${osgi.core.version}</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.cxf</groupId>-->
+            <!--<artifactId>cxf-rt-frontend-jaxws</artifactId>-->
+            <!--<version>${cxf.version}</version>-->
+            <!--<scope>${cxf.scope}</scope>-->
+            <!--<classifier>features</classifier>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.cxf</groupId>-->
+            <!--<artifactId>cxf-rt-transports-http</artifactId>-->
+            <!--<version>${cxf.version}</version>-->
+            <!--<scope>${cxf.scope}</scope>-->
+            <!--<classifier>features</classifier>-->
+        <!--</dependency>-->
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
+                <version>${karaf.plugin}</version>
                 <executions>
                     <execution>
                         <id>generate-features-descriptor</id>
@@ -31,6 +60,26 @@
                         <goals>
                             <goal>features-generate-descriptor</goal>
                         </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <aggregateFeatures>true</aggregateFeatures>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.karaf.tooling</groupId>
+                <artifactId>features-maven-plugin</artifactId>
+                <version>2.4.4</version>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.build.directory}/feature/feature.xml</file>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -48,7 +97,7 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>target/classes/features.xml</file>
+                                    <file>${project.build.directory}/feature/feature.xml</file>
                                     <type>xml</type>
                                     <classifier>features</classifier>
                                 </artifact>
