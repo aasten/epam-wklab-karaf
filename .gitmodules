@@ -1,3 +1,0 @@
-[submodule "server-bundle"]
-	path = server-bundle
-	url = https://github.com/aasten/epam-wklab-soapsvc-server-bundle.git
