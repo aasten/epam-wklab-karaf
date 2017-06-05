@@ -12,8 +12,8 @@
 
 
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <maven.build.helper.plugin>3.0.0</maven.build.helper.plugin>
         <osgi.core.version>6.0.0</osgi.core.version>
         <karaf.plugin>4.1.1</karaf.plugin>
