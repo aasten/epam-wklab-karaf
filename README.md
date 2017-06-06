@@ -1,10 +1,5 @@
 # Get started
-After cloning fetch the submodules
 ```
-git submodule update --init --recursive
+mvn package
 ```
-Then run
-```
-mvn package karaf:kar
-```
-to get .kar file
+Copy .kar file generated in target/ dir into deploy/ folder of Karaf.
