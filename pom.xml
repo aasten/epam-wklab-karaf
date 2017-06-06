@@ -15,14 +15,12 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.build.helper.plugin>3.0.0</maven.build.helper.plugin>
-        <osgi.core.version>6.0.0</osgi.core.version>
         <karaf.plugin>4.1.1</karaf.plugin>
-        <!--<cxf.version>3.1.10</cxf.version>-->
-        <!--<cxf.scope>provided</cxf.scope>-->
     </properties>
 
     <modules>
         <module>server-bundle</module>
+        <module>server</module>
     </modules>
 
     <dependencies>
@@ -30,27 +28,8 @@
             <groupId>com.epam.wklab</groupId>
             <artifactId>soapsvcsrv-bundle</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <!--<scope>provided</scope>-->
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.osgi</groupId>-->
-            <!--<artifactId>osgi.core</artifactId>-->
-            <!--<version>${osgi.core.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.cxf</groupId>-->
-            <!--<artifactId>cxf-rt-frontend-jaxws</artifactId>-->
-            <!--<version>${cxf.version}</version>-->
-            <!--<scope>${cxf.scope}</scope>-->
-            <!--<classifier>features</classifier>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.cxf</groupId>-->
-            <!--<artifactId>cxf-rt-transports-http</artifactId>-->
-            <!--<version>${cxf.version}</version>-->
-            <!--<scope>${cxf.scope}</scope>-->
-            <!--<classifier>features</classifier>-->
-        <!--</dependency>-->
+
     </dependencies>
 
     <build>
@@ -59,17 +38,8 @@
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
                 <version>${karaf.plugin}</version>
+
                 <executions>
-                    <execution>
-                        <id>generate-features-descriptor</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>features-generate-descriptor</goal>
-                        </goals>
-                        <configuration>
-                            <outputFile>${project.build.directory}/classes/feature.xml</outputFile>
-                        </configuration>
-                    </execution>
 
                     <execution>
                         <id>create-kar</id>
@@ -78,71 +48,13 @@
                             <goal>kar</goal>
                         </goals>
                         <configuration>
-                            <featuresFile>${project.build.directory}/classes/feature.xml</featuresFile>
+                            <featuresFile>${project.basedir}/src/main/resource/feature.xml</featuresFile>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <aggregateFeatures>true</aggregateFeatures>
                 </configuration>
-            </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.karaf.tooling</groupId>-->
-                <!--<artifactId>features-maven-plugin</artifactId>-->
-                <!--<version>2.4.4</version>-->
-                <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.apache.maven.wagon</groupId>-->
-                        <!--<artifactId>wagon-http</artifactId>-->
-                        <!--<version>2.8</version>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>generate-features</id>-->
-                        <!--<phase>generate-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>generate-features-xml</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<bundles></bundles>-->
-                            <!--<outputFile>${project.build.directory}/feature/feature.xml</outputFile>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>create-kar</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>create-kar</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<featuresFile>${project.build.directory}/feature/feature.xml</featuresFile>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${maven.build.helper.plugin}</version>
-                <executions>
-                    <execution>
-                        <id>attach-artifacts</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attach-artifact</goal>
-                        </goals>
-                        <configuration>
-                            <artifacts>
-                                <artifact>
-                                    <file>${project.build.directory}/feature/feature.xml</file>
-                                    <type>xml</type>
-                                    <classifier>features</classifier>
-                                </artifact>
-                            </artifacts>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
         </plugins>
