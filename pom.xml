@@ -14,13 +14,11 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.build.helper.plugin>3.0.0</maven.build.helper.plugin>
         <karaf.plugin>4.1.1</karaf.plugin>
     </properties>
 
     <modules>
         <module>server-bundle</module>
-        <module>server</module>
     </modules>
 
     <dependencies>
